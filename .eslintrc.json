@@ -3,6 +3,19 @@
     "es2021": true,
     "node": true
   },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@routes", "./src/routes"],
+          ["@controllers", "./src/controllers"],
+          ["@config", "./src/config"]
+          // Agrega otros alias según sea necesario
+        ],
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
+      }
+    }
+  },
   "extends": [
     "standard-with-typescript",
     "plugin:prettier/recommended",
@@ -12,25 +25,22 @@
   "plugins": ["@typescript-eslint", "import", "prettier"],
   "overrides": [],
   "parserOptions": {
-    "ecmaVersion": "latest",
+    "ecmaVersion": 2021,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": ["./tsconfig.json", "./babel.config.js"]
   },
   "rules": {
     "prettier/prettier": "error",
-    "import/no-unresolved": [
+    "import/no-unresolved": ["error", { "commonjs": true }],
+    "@typescript-eslint/no-var-requires": "off",
+    "import/extensions": [
       "error",
+      "ignorePackages",
       {
-        "plugins": [
-          "module-resolve",
-          {
-            "alias": {
-              "@routes": "./src/routes",
-              "@constrollers": "./src/controllers",
-              "@config": "./src/confing"
-            }
-          }
-        ]
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never"
       }
     ]
   }
