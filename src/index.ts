@@ -1,12 +1,25 @@
-import express from 'express';
+import app from './app/app'
+import initializeDatabase from './app/db' // Cambié el nombre de db a initializeDatabase
 
-import indexRoute from '@routes/index.route';
+const startApp = async () => {
+  try {
+    const db = await initializeDatabase() // Espera a que se completen la carga de modelos y la sincronización de la base de datos
 
-const app = express();
+    // Opcionalmente, puedes acceder a los modelos de la siguiente manera:
+    // const userModel = db.User;
+    // const cursoModel = db.Curso;
 
-app.get('/', (req, res) => {
-  res.json({ message: 'hello world!' });
-});
-app.use('/', indexRoute);
+    // Sincroniza la base de datos (puedes cambiar { force: false } según tus necesidades)
+    await db.conn.sync({ force: true })
 
-app.listen(3000, () => console.log('Server runnuning on port 3000'));
+    // Inicia tu aplicación después de completar la inicialización de la base de datos
+    app.listen(3000, () => {
+      console.log('%s listening at 3000')
+    })
+  } catch (error) {
+    console.error('Error al iniciar la aplicación:', error)
+    process.exit(1) // Sale con un código de error en caso de fallo
+  }
+}
+
+startApp()
