@@ -8,7 +8,7 @@ const sequelize = new Sequelize('postgres', 'postgres', 'postgres', {
   logging: false
 })
 
-const capitalizeModels = async () => {
+const capitalizeModels = async (): Promise<void> => {
   const modelsDir = path.join(__dirname, '../models')
 
   try {
@@ -20,15 +20,11 @@ const capitalizeModels = async () => {
 
     const importPromises = modelFiles.map(async (file) => {
       const filePath = path.join(modelsDir, file)
-      const importedModel = require(filePath)
+      const importedModel = require(filePath).default
 
-      if (
-        importedModel &&
-        importedModel.default &&
-        typeof importedModel.default === 'function'
-      ) {
+      if (Boolean(importedModel) && typeof importedModel === 'function') {
         const modelName = file.replace(/\.ts$/, '')
-        const model = importedModel.default(sequelize)
+        const model = importedModel(sequelize)
         sequelize.models[modelName] = model
         console.log('Modelo cargado:', sequelize.models[modelName])
       }
@@ -43,7 +39,7 @@ const capitalizeModels = async () => {
   }
 }
 
-export default async () => {
+export default async (): Promise<{ [key: string]: any }> => {
   await capitalizeModels()
   return {
     ...sequelize.models,

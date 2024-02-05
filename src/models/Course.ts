@@ -2,19 +2,17 @@ import { DataTypes, Model, Optional, Sequelize } from 'sequelize'
 
 interface CursoAttributes {
   id: number
-  nombre: string
-  duracionHoras: number
-  nivel: string
+  name: string
+  durationHours: number
+  level: string
 }
 
-interface CursoCreationAttributes extends Optional<CursoAttributes, 'id'> {}
+interface CourseInstance extends Optional<CursoAttributes, 'id'> {}
 
-interface CursoInstance
-  extends Model<CursoAttributes, CursoCreationAttributes>,
-    CursoAttributes {}
+class CursoModel extends Model<CursoAttributes, CourseInstance> {}
 
-const Curso = (sequelize: Sequelize) => {
-  return sequelize.define<CursoInstance>(
+const Course = (sequelize: Sequelize): typeof CursoModel => {
+  return sequelize.define(
     'Curso',
     {
       id: {
@@ -23,15 +21,15 @@ const Curso = (sequelize: Sequelize) => {
         autoIncrement: true,
         allowNull: false
       },
-      nombre: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      duracionHoras: {
+      durationHours: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      nivel: {
+      level: {
         type: DataTypes.STRING,
         allowNull: false
       }
@@ -42,4 +40,4 @@ const Curso = (sequelize: Sequelize) => {
   )
 }
 
-export default Curso
+export default Course

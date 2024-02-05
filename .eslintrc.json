@@ -31,7 +31,7 @@
   },
   "rules": {
     "prettier/prettier": "error",
-    "import/no-unresolved": ["error", { "commonjs": true }],
+    "@typescript-eslint/indent": "off",
     "@typescript-eslint/no-var-requires": "off",
     "import/extensions": [
       "error",

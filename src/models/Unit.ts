@@ -1,22 +1,22 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize'
 
-interface UnidadAttributes {
+interface UnitAttributes {
   id: number
-  nombre: string
-  descripcion: string
-  orden: number
-  cursoId: number
+  name: string
+  description: string
+  order: number
+  courseId: number
 }
 
-interface UnidadCreationAttributes extends Optional<UnidadAttributes, 'id'> {}
+interface UnitInstance extends Optional<UnitAttributes, 'id'> {}
 
-interface UnidadInstance
-  extends Model<UnidadAttributes, UnidadCreationAttributes>,
-    UnidadAttributes {}
+class UnitModel extends Model<UnitAttributes, UnitInstance> {
+  // Puedes agregar métodos o propiedades personalizadas aquí si es necesario
+}
 
-const Unidad = (sequelize: Sequelize) => {
-  return sequelize.define<UnidadInstance>(
-    'Unidad',
+const Unit = (sequelize: Sequelize): typeof UnitModel => {
+  return sequelize.define(
+    'Unit',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -24,19 +24,19 @@ const Unidad = (sequelize: Sequelize) => {
         autoIncrement: true,
         allowNull: false
       },
-      nombre: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      descripcion: {
+      description: {
         type: DataTypes.STRING,
         allowNull: true
       },
-      orden: {
+      order: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      cursoId: {
+      courseId: {
         type: DataTypes.INTEGER,
         allowNull: false
       }
@@ -47,4 +47,4 @@ const Unidad = (sequelize: Sequelize) => {
   )
 }
 
-export default Unidad
+export default Unit

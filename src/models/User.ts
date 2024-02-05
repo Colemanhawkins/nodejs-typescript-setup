@@ -8,9 +8,12 @@ interface UserAttributes {
   password: string
 }
 
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
+interface UserInstance extends Optional<UserAttributes, 'id'> {}
 
-const User = (sequelize: Sequelize) => {
+class UserModel extends Model<UserAttributes, UserInstance> {
+  // Puedes agregar métodos o propiedades personalizadas aquí si es necesario
+}
+const User = (sequelize: Sequelize): typeof UserModel => {
   return sequelize.define(
     'User',
     {
@@ -40,7 +43,7 @@ const User = (sequelize: Sequelize) => {
       }
     },
     {
-      modelName: 'User'
+      modelName: 'Usuario'
     }
   )
 }

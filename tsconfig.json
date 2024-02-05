@@ -1,22 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2021",
     "module": "commonjs",
     "rootDir": "./src",
     "allowJs": true,
-    "outDir": "build",
-    "baseUrl": ".",
     "paths": {
       "@routes/*": ["./src/routes/*"],
-      "@constrollers/*": ["./src/controllers/*"],
-      "@config/*": ["./src/confing/*"]
+      "@controllers/*": ["./src/controllers/*"],
+      "@config/*": ["./src/config/*"]
     },
+    "outDir": "build",
+    "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./src/@types"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "strictNullChecks": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
