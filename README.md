@@ -1,1 +1,1 @@
-This is a tutorial project for youtube with deploy on digitalocean
+This is a boilerplate of a proyect in sequelize, pg, typescript,nodejs, express
